@@ -8,209 +8,239 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --maroon: #800000;
+      --light-maroon: #a52a2a;
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Quicksand', sans-serif;
     }
+
+    /* Memastikan konten benar-benar di tengah secara vertikal dan horizontal */
     html, body {
       height: 100%;
+      width: 100%;
       overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
     body {
-      background-color: #f9f9f9;
-      color: #333;
+      background-color: #000;
+      color: #fff;
     }
-    .dark-mode body {
-      background-color: #1a1a1a;
-      color: #eee;
-    }
+
+    /* Video Background Transparan Filter */
     #bg-video {
       position: fixed;
       top: 0;
       left: 0;
       min-width: 100%;
       min-height: 100%;
+      width: auto;
+      height: auto;
       object-fit: cover;
       z-index: -2;
+      /* Menggunakan raw github agar video terdeteksi browser */
     }
+
     .overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(255, 255, 255, 0.4);
+      background: rgba(0, 0, 0, 0.5); /* Overlay gelap agar teks terbaca */
       z-index: -1;
-      transition: background 0.3s ease;
     }
-    .dark-mode .overlay {
-      background: rgba(0, 0, 0, 0.7);
-    }
+
     .content-wrapper {
+      width: 100%;
       display: flex;
       justify-content: center;
+      align-items: center;
       padding: 20px;
+      min-height: 100vh;
     }
+
     .container {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.1); /* Sangat Transparan */
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
       border-radius: 30px;
-      padding: 30px 20px;
-      max-width: 400px;
+      padding: 40px 25px;
+      max-width: 420px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 1.2s ease-in-out;
-      margin-bottom: 30px;
-      position: relative;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1s ease-out;
     }
-    .dark-mode .container {
-      background: rgba(40, 40, 40, 0.7);
-    }
+
     .theme-toggle {
       position: absolute;
-      top: 15px;
-      right: 15px;
+      top: 20px;
+      right: 20px;
       background: none;
       border: none;
       cursor: pointer;
       font-size: 20px;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     }
+
+    /* Animasi Logo */
     .profile-img {
-      width: 120px;
-      height: 120px;
+      width: 130px;
+      height: 130px;
       object-fit: cover;
       border-radius: 50%;
-      border: 4px solid #4CAF50;
+      border: 3px solid var(--maroon);
       margin-bottom: 15px;
+      box-shadow: 0 0 20px rgba(128, 0, 0, 0.5);
+      animation: logoPulse 3s infinite ease-in-out;
     }
+
+    @keyframes logoPulse {
+      0% { transform: scale(1); box-shadow: 0 0 10px rgba(128, 0, 0, 0.5); }
+      50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(128, 0, 0, 0.8); }
+      100% { transform: scale(1); box-shadow: 0 0 10px rgba(128, 0, 0, 0.5); }
+    }
+
     h1 {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 600;
-      color: #2E7D32; /* Hijau Masak */
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      margin-bottom: 5px;
     }
-    .dark-mode h1 {
-      color: #81C784;
-    }
+
     p.bio {
-      margin: 6px 0 20px;
+      margin-bottom: 25px;
       font-size: 14px;
-      color: #555;
-      font-weight: 500;
+      color: #f0f0f0;
+      letter-spacing: 0.5px;
     }
-    .dark-mode p.bio {
-      color: #ccc;
-    }
+
     .grid-links {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin-bottom: 15px;
+      gap: 12px;
+      margin-bottom: 12px;
     }
+
     .link {
       display: flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      background: white;
-      color: #2E7D32;
-      border-radius: 20px;
-      padding: 12px 10px;
+      background: rgba(128, 0, 0, 0.85); /* Merah Marun */
+      color: white;
+      border-radius: 15px;
+      padding: 14px 10px;
       font-weight: 600;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s ease, background 0.3s ease;
+      transition: all 0.3s ease;
       font-size: 14px;
-      margin-bottom: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
     }
+
     .link:hover {
-      transform: translateY(-3px);
-      background: #E8F5E9;
+      transform: translateY(-5px);
+      background: var(--light-maroon);
+      box-shadow: 0 5px 15px rgba(128, 0, 0, 0.4);
     }
-    .dark-mode .link {
-      background: #333;
-      color: #81C784;
+
+    .full-link {
+      grid-column: span 2;
     }
-    .dark-mode .link:hover {
-      background: #444;
-    }
+
     .link img {
-      width: 20px;
-      margin-right: 8px;
+      width: 18px;
+      margin-right: 10px;
+      filter: brightness(0) invert(1);
     }
+
     footer {
-      margin-top: 20px;
-      font-size: 12px;
-      color: #777;
+      margin-top: 25px;
+      font-size: 11px;
+      color: #ccc;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
+
     @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
+
+    /* Responsif Mobile */
     @media (max-width: 480px) {
-      .content-wrapper { padding: 16px; }
-      .container { padding: 25px 15px; }
+      .container {
+        padding: 30px 20px;
+        margin: 10px;
+      }
+      h1 { font-size: 22px; }
     }
   </style>
 </head>
 <body>
-  <video autoplay muted loop id="bg-video">
-    <source src="https://assets.mixkit.co/videos/preview/mixkit-fresh-vegetables-in-a-pan-40543-large.mp4" type="video/mp4">
-  </video>
-  <div class="overlay"></div>
 
-  <audio id="bgm" autoplay loop hidden>
-    <source src="https://www.bensound.com/bensound-music/bensound-buddy.mp3" type="audio/mpeg">
-  </audio>
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="https://raw.githubusercontent.com/marcellnw/cookingnyai/main/lv_0_20251218204337.mp4" type="video/mp4">
+  </video>
+  
+  <div class="overlay"></div>
 
   <div class="content-wrapper">
     <div class="container">
       <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
       
-      <img class="profile-img" src="https://ui-avatars.com/api/?name=Cooking+Nyai&background=4CAF50&color=fff&size=128" alt="Cookingnyai" />
+      <img class="profile-img" src="https://raw.githubusercontent.com/marcellnw/cookingnyai/main/IMG-20251218-WA0070.jpg" alt="Logo Cookingnyai" />
       
       <h1>Cookingnyai</h1>
-      <p class="bio">Resep Masakan Harian | Tips Dapur | Food Enthusiast</p>
+      <p class="bio">Resep Khas Jambi & Masakan Harian</p>
 
       <div class="grid-links">
         <a class="link" href="https://tiktok.com/@cookingnyai__" target="_blank">
-          <img src="https://img.icons8.com/ios-filled/50/2E7D32/tiktok--v1.png"/> TikTok
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/tiktok--v1.png"/> TikTok
         </a>
         <a class="link" href="https://www.facebook.com/share/17upykpc1f/" target="_blank">
-          <img src="https://img.icons8.com/ios-filled/50/2E7D32/facebook-new.png"/> Facebook
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png"/> Facebook
+        </a>
+        
+        <a class="link full-link" href="#" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/restaurant.png"/> Resep Khas Jambi
+        </a>
+        
+        <a class="link full-link" href="#" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/shopping-cart.png"/> Belanja Peralatan Masak
         </a>
       </div>
 
-      <a class="link" href="#" target="_blank">
-        <img src="https://img.icons8.com/ios-filled/50/2E7D32/restaurant.png"/> Kumpulan Resep
-      </a>
-      
-      <a class="link" href="#" target="_blank">
-        <img src="https://img.icons8.com/ios-filled/50/2E7D32/shopping-cart.png"/> Rekomendasi Alat Masak
-      </a>
-
       <footer>
-        &copy; 2025 <strong>Cookingnyai</strong> | Inspirasi Masak Setiap Hari.
+        &copy; 2025 <strong>Cookingnyai</strong> | Dari Jambi Untuk Nusantara
       </footer>
     </div>
   </div>
 
   <script>
-    // Memutar musik setelah interaksi pertama
-    window.addEventListener("click", function () {
-      const bgm = document.getElementById("bgm");
-      if (bgm && bgm.paused) {
-        bgm.play().catch(() => {});
-      }
-    }, { once: true });
-
     function toggleTheme() {
-      document.documentElement.classList.toggle('dark-mode');
-      const btn = document.querySelector('.theme-toggle');
-      btn.textContent = document.documentElement.classList.contains('dark-mode') ? '☀️' : '🌙';
+      // Fitur simpel ganti mode (opsional karena tema marun sudah gelap)
+      const overlay = document.querySelector('.overlay');
+      if (document.body.style.backgroundColor === 'white') {
+        document.body.style.backgroundColor = 'black';
+        overlay.style.background = 'rgba(0,0,0,0.5)';
+      } else {
+        document.body.style.backgroundColor = 'white';
+        overlay.style.background = 'rgba(255,255,255,0.2)';
+      }
     }
   </script>
 </body>
 </html>
-
