@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookingnyai — Resep Khas Jambi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --maroon: #800000;
+      --light-maroon: #a52a2a;
+      --glass: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* Video Background */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      padding: 40px 25px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 1s ease-out;
+    }
+
+    /* Logo Animasi */
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--maroon);
+      margin-bottom: 15px;
+      animation: logoPulse 3s infinite ease-in-out;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 10px var(--maroon); }
+      50% { transform: scale(1.05); box-shadow: 0 0 25px var(--light-maroon); }
+    }
+
+    h1 { font-size: 26px; margin-bottom: 5px; color: #fff; }
+    .bio { font-size: 14px; color: #ddd; margin-bottom: 25px; }
+
+    /* Links */
+    .grid-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      background: var(--maroon);
+      color: white;
+      border-radius: 15px;
+      padding: 14px 5px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+    .link:hover { transform: translateY(-3px); background: var(--light-maroon); }
+    .full-link { grid-column: span 2; }
+    .link img { width: 18px; margin-right: 8px; filter: invert(1); }
+
+    /* MODAL STYLE (Halaman Resep) */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 100;
+      overflow-y: auto;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+    .modal-content {
+      max-width: 600px;
+      margin: 40px auto;
+      background: rgba(128, 0, 0, 0.2);
+      border: 1px solid var(--maroon);
+      border-radius: 20px;
+      padding: 25px;
+    }
+    .close-btn {
+      color: #fff;
+      float: right;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .recipe-card {
+      background: rgba(255,255,255,0.05);
+      border-left: 4px solid var(--maroon);
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 0 10px 10px 0;
+      text-align: left;
+    }
+    .recipe-card h3 { color: #ff9999; margin-bottom: 8px; font-size: 18px; }
+    .recipe-card p { font-size: 13.5px; line-height: 1.6; color: #eee; }
+
+    footer { margin-top: 25px; font-size: 11px; color: #bbb; letter-spacing: 1px; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="https://raw.githubusercontent.com/marcellnw/cookingnyai/main/lv_0_20251218204337.mp4" type="video/mp4">
+  </video>
+  
+  <div class="overlay"></div>
+
+  <div class="container">
+    <img class="profile-img" src="https://raw.githubusercontent.com/marcellnw/cookingnyai/main/IMG-20251218-WA0070.jpg" alt="Logo" />
+    <h1>Cookingnyai</h1>
+    <p class="bio">Inspirasi Masakan Jambi & Menu Harian</p>
+
+    <div class="grid-links">
+      <a class="link" href="https://tiktok.com/@cookingnyai__" target="_blank">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/tiktok--v1.png"/> TikTok
+      </a>
+      <a class="link" href="https://www.facebook.com/share/17upykpc1f/" target="_blank">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png"/> Facebook
+      </a>
+      
+      <button class="link full-link" onclick="openModal()">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/restaurant.png"/> Daftar Resep Khas Jambi
+      </button>
+      
+      <a class="link full-link" href="https://wa.me/628XXXXXXXXXX" target="_blank">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png"/> Tanya Resep / Kerjasama
+      </a>
+    </div>
+
+    <footer>
+      &copy; 2025 <strong>Cookingnyai</strong> | Jambi, Indonesia
+    </footer>
+  </div>
+
+  <div id="recipeModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 style="margin-bottom: 25px; color: #fff; text-align: center;">Katalog Kuliner Jambi</h2>
+
+      <div class="recipe-card">
+        <h3>1. Tempoyak Ikan Patin</h3>
+        <p><strong>Pengertian:</strong> Ikon kuliner Jambi yang menggunakan fermentasi durian (Tempoyak).<br>
+        <strong>Deskripsi:</strong> Rasa gurih, asam, dan pedas menyatu dengan kelembutan daging ikan patin segar. Aroma tempoyak yang khas memberikan sensasi makan yang tiada duanya.</p>
+      </div>
+
+      <div class="recipe-card">
+        <h3>2. Gulai Tepek Ikan</h3>
+        <p><strong>Pengertian:</strong> Makanan raja-raja Jambi zaman dahulu berbahan dasar ikan yang dipadatkan (Tepek).<br>
+        <strong>Deskripsi:</strong> Mirip pempek tapi disajikan dengan kuah gulai merah yang kental dan kaya rempah. Teksturnya kenyal dan sangat gurih.</p>
+      </div>
+
+      <div class="recipe-card">
+        <h3>3. Nasi Minyak Jambi</h3>
+        <p><strong>Pengertian:</strong> Nasi berbumbu rempah yang dipengaruhi budaya Timur Tengah.<br>
+        <strong>Deskripsi:</strong> Dimasak dengan minyak samin, susu, dan rempah seperti kapulaga. Biasanya disajikan dengan Malbi (semur daging khas Jambi) dan nanas segar.</p>
+      </div>
+
+      <div class="recipe-card">
+        <h3>4. Kerutup Ikan</h3>
+        <p><strong>Pengertian:</strong> Teknik memasak ikan air tawar dengan cara dibungkus daun pisang dan digoreng.<br>
+        <strong>Deskripsi:</strong> Ikan diolesi bumbu halus yang melimpah, dibungkus rapat, lalu digoreng hingga harum. Daun pisang menjaga sari ikan tetap juicy dan bumbu meresap sempurna.</p>
+      </div>
+
+      <div class="recipe-card">
+        <h3>5. Pempek Sambal</h3>
+        <p><strong>Pengertian:</strong> Varian pempek khas Jambi yang tidak menggunakan cuko cair.<br>
+        <strong>Deskripsi:</strong> Pempek sagu berbentuk bulat pipih yang ditumis langsung dengan sambal merah pedas manis dan irisan daun jeruk. Sangat cocok untuk camilan harian.</p>
+      </div>
+
+      <div class="recipe-card">
+        <h3>6. Dendeng Batokok</h3>
+        <p><strong>Pengertian:</strong> Daging sapi yang dipukul (Tokok) hingga pipih dan lembut.<br>
+        <strong>Deskripsi:</strong> Dibakar di atas bara api lalu disiram minyak kelapa dan sambal ijo kasar yang segar. Teksturnya tidak keras dan aromanya sangat menggugah selera.</p>
+      </div>
+
+      <p style="text-align: center; font-size: 12px; color: #aaa;">Scroll untuk melihat lebih banyak...</p>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById("recipeModal").style.display = "block";
+      document.body.style.overflow = "hidden"; // Disable scroll background
+    }
+
+    function closeModal() {
+      document.getElementById("recipeModal").style.display = "none";
+      document.body.style.overflow = "auto"; // Enable scroll background
+    }
+
+    // Close modal if user clicks outside of it
+    window.onclick = function(event) {
+      let modal = document.getElementById("recipeModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>
+
