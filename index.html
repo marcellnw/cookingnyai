@@ -11,8 +11,9 @@
     :root {
       --maroon: #800000;
       --light-maroon: #a52a2a;
-      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-bg: rgba(255, 255, 255, 0.1);
       --glass-border: rgba(255, 255, 255, 0.2);
+      --text-color: #ffffff;
     }
 
     * {
@@ -22,33 +23,33 @@
       font-family: 'Quicksand', sans-serif;
     }
 
-    /* Memastikan konten benar-benar di tengah secara vertikal dan horizontal */
     html, body {
       height: 100%;
       width: 100%;
-      overflow-x: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden; /* Mencegah scroll yang tidak perlu */
     }
 
     body {
       background-color: #000;
-      color: #fff;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.5s ease;
     }
 
-    /* Video Background Transparan Filter */
+    /* Video Background */
     #bg-video {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 50%;
+      left: 50%;
       min-width: 100%;
       min-height: 100%;
       width: auto;
       height: auto;
-      object-fit: cover;
       z-index: -2;
-      /* Menggunakan raw github agar video terdeteksi browser */
+      transform: translate(-50%, -50%);
+      object-fit: cover;
     }
 
     .overlay {
@@ -57,8 +58,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5); /* Overlay gelap agar teks terbaca */
+      background: rgba(0, 0, 0, 0.6);
       z-index: -1;
+      transition: background 0.5s ease;
     }
 
     .content-wrapper {
@@ -67,38 +69,46 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
-      min-height: 100vh;
+      z-index: 1;
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.1); /* Sangat Transparan */
+      background: var(--glass-bg);
       backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
       border: 1px solid var(--glass-border);
       border-radius: 30px;
       padding: 40px 25px;
-      max-width: 420px;
+      max-width: 400px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
       animation: fadeIn 1s ease-out;
+      position: relative;
     }
 
     .theme-toggle {
       position: absolute;
       top: 20px;
       right: 20px;
-      background: none;
+      background: rgba(255,255,255,0.1);
       border: none;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
       cursor: pointer;
-      font-size: 20px;
-      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
     }
 
-    /* Animasi Logo */
+    .theme-toggle:hover { background: rgba(255,255,255,0.2); }
+
     .profile-img {
-      width: 130px;
-      height: 130px;
+      width: 120px;
+      height: 120px;
       object-fit: cover;
       border-radius: 50%;
       border: 3px solid var(--maroon);
@@ -108,31 +118,17 @@
     }
 
     @keyframes logoPulse {
-      0% { transform: scale(1); box-shadow: 0 0 10px rgba(128, 0, 0, 0.5); }
-      50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(128, 0, 0, 0.8); }
-      100% { transform: scale(1); box-shadow: 0 0 10px rgba(128, 0, 0, 0.5); }
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
-    h1 {
-      font-size: 26px;
-      font-weight: 600;
-      color: #fff;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-      margin-bottom: 5px;
-    }
-
-    p.bio {
-      margin-bottom: 25px;
-      font-size: 14px;
-      color: #f0f0f0;
-      letter-spacing: 0.5px;
-    }
+    h1 { font-size: 24px; font-weight: 600; margin-bottom: 5px; }
+    p.bio { margin-bottom: 25px; font-size: 14px; opacity: 0.9; }
 
     .grid-links {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin-bottom: 12px;
     }
 
     .link {
@@ -140,52 +136,39 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      background: rgba(128, 0, 0, 0.85); /* Merah Marun */
+      background: var(--maroon);
       color: white;
-      border-radius: 15px;
-      padding: 14px 10px;
+      border-radius: 12px;
+      padding: 12px 10px;
       font-weight: 600;
-      transition: all 0.3s ease;
-      font-size: 14px;
-      border: 1px solid rgba(255,255,255,0.1);
+      transition: 0.3s;
+      font-size: 13px;
     }
 
     .link:hover {
-      transform: translateY(-5px);
+      transform: translateY(-3px);
       background: var(--light-maroon);
       box-shadow: 0 5px 15px rgba(128, 0, 0, 0.4);
     }
 
-    .full-link {
-      grid-column: span 2;
-    }
+    .full-link { grid-column: span 2; }
 
     .link img {
       width: 18px;
-      margin-right: 10px;
+      margin-right: 8px;
       filter: brightness(0) invert(1);
     }
 
     footer {
       margin-top: 25px;
-      font-size: 11px;
-      color: #ccc;
-      text-transform: uppercase;
+      font-size: 10px;
+      opacity: 0.7;
       letter-spacing: 1px;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Responsif Mobile */
-    @media (max-width: 480px) {
-      .container {
-        padding: 30px 20px;
-        margin: 10px;
-      }
-      h1 { font-size: 22px; }
     }
   </style>
 </head>
@@ -199,7 +182,7 @@
 
   <div class="content-wrapper">
     <div class="container">
-      <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
       
       <img class="profile-img" src="https://raw.githubusercontent.com/marcellnw/cookingnyai/main/IMG-20251218-WA0070.jpg" alt="Logo Cookingnyai" />
       
@@ -214,31 +197,37 @@
           <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png"/> Facebook
         </a>
         
-        <a class="link full-link" href="resep.html" target="_blank">
+        <a class="link full-link" href="resep.html">
           <img src="https://img.icons8.com/ios-filled/50/ffffff/restaurant.png"/> Resep Khas Jambi
         </a>
         
-        <a class="link full-link" href="#" target="_blank">
+        <a class="link full-link" href="#">
           <img src="https://img.icons8.com/ios-filled/50/ffffff/shopping-cart.png"/> Belanja Peralatan Masak
         </a>
       </div>
 
       <footer>
-        &copy; 2025 <strong>Cookingnyai</strong> | Dari Jambi Untuk Nusantara
+        &copy; 2025 <strong>Cookingnyai</strong><br>Dari Jambi Untuk Nusantara
       </footer>
     </div>
   </div>
 
   <script>
     function toggleTheme() {
-      // Fitur simpel ganti mode (opsional karena tema marun sudah gelap)
+      const body = document.body;
       const overlay = document.querySelector('.overlay');
-      if (document.body.style.backgroundColor === 'white') {
-        document.body.style.backgroundColor = 'black';
-        overlay.style.background = 'rgba(0,0,0,0.5)';
+      const btn = document.getElementById('themeBtn');
+      
+      if (body.style.backgroundColor === 'white') {
+        body.style.backgroundColor = 'black';
+        body.style.color = 'white';
+        overlay.style.background = 'rgba(0,0,0,0.6)';
+        btn.innerHTML = '🌙';
       } else {
-        document.body.style.backgroundColor = 'white';
-        overlay.style.background = 'rgba(255,255,255,0.2)';
+        body.style.backgroundColor = 'white';
+        body.style.color = '#333';
+        overlay.style.background = 'rgba(255,255,255,0.3)';
+        btn.innerHTML = '☀️';
       }
     }
   </script>
